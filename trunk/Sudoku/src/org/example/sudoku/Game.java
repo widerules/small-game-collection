@@ -48,6 +48,18 @@ public class Game extends Activity {
 		puzzleView.requestFocus();
 	}
 	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Music.play(this, R.raw.game);
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Music.stop(this);
+	}
+	
 	protected int[] getUsedTiles(int x, int y) {
 		return used[x][y];
 	}
