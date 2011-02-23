@@ -123,7 +123,7 @@ public class PuzzleView extends View {
 		}
 	}
 	
-	private void setSelectedTile(int tile) {
+	public void setSelectedTile(int tile) {
 		if(game.setTileIfValid(selX, selY, tile)) {
 			invalidate();
 		} else {
