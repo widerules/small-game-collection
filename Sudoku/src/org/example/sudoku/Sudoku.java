@@ -64,6 +64,18 @@ public class Sudoku extends Activity implements OnClickListener {
 		return false;
 	}
 	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Music.play(this, R.raw.sudoku);
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Music.stop(this);
+	}
+	
 	private void openNewGameDialog() {
 		new  AlertDialog.Builder(this).setTitle(R.string.new_game_title).setItems(R.array.difficulty, new DialogInterface.OnClickListener() {
 			
