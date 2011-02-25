@@ -20,6 +20,8 @@ public class Game extends Activity {
 	private PuzzleView puzzleView;
 	
 	private static final String TAG = "Sudoku.Game";
+	private static final String PREF_PUZZLE = "puzzle";
+	protected static final int DIFFICULTY_CONTINUE = -1;
 	
 	private  final String easyPuzzle = 
 		"360000000004230800000004200" +
@@ -46,6 +48,8 @@ public class Game extends Activity {
 		puzzleView = new PuzzleView(this);
 		setContentView(puzzleView);
 		puzzleView.requestFocus();
+		
+		getIntent().putExtra(KEY_DIFFICULTY, DIFFICULTY_CONTINUE);
 	}
 	
 	@Override
@@ -58,6 +62,9 @@ public class Game extends Activity {
 	protected void onPause() {
 		super.onPause();
 		Music.stop(this);
+		
+		getPreferences(MODE_PRIVATE).edit().putString(PREF_PUZZLE, 
+				toPuzzleString(puzzle)).commit();
 	}
 	
 	protected int[] getUsedTiles(int x, int y) {
@@ -153,6 +160,9 @@ public class Game extends Activity {
 	private int[] getPuzzle(int diff) {
 		String puz;
 		switch(diff) {
+		case DIFFICULTY_CONTINUE:
+			puz = getPreferences(MODE_PRIVATE).getString(PREF_PUZZLE, easyPuzzle);
+			break;
 		case DIFFICULTY_HARD:
 			puz  = hardPuzzle;
 			break;
